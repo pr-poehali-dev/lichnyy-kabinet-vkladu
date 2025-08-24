@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
@@ -16,7 +18,15 @@ const Index = () => {
     term: ''
   });
 
-  const deposits = [
+  const [depositForm, setDepositForm] = useState({
+    amount: '',
+    depositId: '',
+    description: ''
+  });
+
+  const [isDepositDialogOpen, setIsDepositDialogOpen] = useState(false);
+
+  const [deposits, setDeposits] = useState([
     {
       id: 1,
       name: 'Классический вклад',
@@ -50,9 +60,9 @@ const Index = () => {
       earned: 10200,
       status: 'maturing'
     }
-  ];
+  ]);
 
-  const transactions = [
+  const [transactions, setTransactions] = useState([
     {
       id: 1,
       type: 'deposit',
@@ -93,7 +103,7 @@ const Index = () => {
       date: '2024-07-20',
       status: 'completed'
     }
-  ];
+  ]);
 
   const calculateProfit = () => {
     const amount = parseFloat(calculatorForm.amount);
@@ -132,6 +142,38 @@ const Index = () => {
       interest: 'Percent'
     };
     return icons[type as keyof typeof icons] || 'Circle';
+  };
+
+  const handleDeposit = () => {
+    if (!depositForm.amount || !depositForm.depositId) return;
+    
+    const amount = parseFloat(depositForm.amount);
+    const selectedDeposit = deposits.find(d => d.id.toString() === depositForm.depositId);
+    
+    if (!selectedDeposit) return;
+
+    // Обновляем вклад
+    setDeposits(deposits.map(deposit => 
+      deposit.id.toString() === depositForm.depositId 
+        ? { ...deposit, amount: deposit.amount + amount }
+        : deposit
+    ));
+
+    // Добавляем транзакцию
+    const newTransaction = {
+      id: transactions.length + 1,
+      type: 'deposit',
+      description: depositForm.description || `Пополнение ${selectedDeposit.name}`,
+      amount: amount,
+      date: new Date().toISOString().split('T')[0],
+      status: 'completed'
+    };
+
+    setTransactions([newTransaction, ...transactions]);
+
+    // Сбрасываем форму
+    setDepositForm({ amount: '', depositId: '', description: '' });
+    setIsDepositDialogOpen(false);
   };
 
   const totalBalance = deposits.reduce((sum, deposit) => sum + deposit.amount + deposit.earned, 0);
@@ -196,6 +238,85 @@ const Index = () => {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex gap-4">
+            <Dialog open={isDepositDialogOpen} onOpenChange={setIsDepositDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-primary">
+                  <Icon name="Plus" className="w-4 h-4 mr-2" />
+                  Внести поступление
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Внесение поступления</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="deposit-select">Выберите вклад</Label>
+                    <Select 
+                      value={depositForm.depositId} 
+                      onValueChange={(value) => setDepositForm({...depositForm, depositId: value})}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Выберите вклад для пополнения" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {deposits.filter(d => d.status === 'active').map(deposit => (
+                          <SelectItem key={deposit.id} value={deposit.id.toString()}>
+                            {deposit.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="deposit-amount">Сумма пополнения</Label>
+                    <Input
+                      id="deposit-amount"
+                      type="number"
+                      placeholder="Введите сумму"
+                      value={depositForm.amount}
+                      onChange={(e) => setDepositForm({...depositForm, amount: e.target.value})}
+                      className="mt-2"
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="deposit-description">Описание (необязательно)</Label>
+                    <Input
+                      id="deposit-description"
+                      placeholder="Комментарий к операции"
+                      value={depositForm.description}
+                      onChange={(e) => setDepositForm({...depositForm, description: e.target.value})}
+                      className="mt-2"
+                    />
+                  </div>
+                  
+                  <div className="flex gap-2 pt-4">
+                    <Button 
+                      onClick={handleDeposit}
+                      disabled={!depositForm.amount || !depositForm.depositId}
+                      className="flex-1"
+                    >
+                      <Icon name="Check" className="w-4 h-4 mr-2" />
+                      Внести
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setIsDepositDialogOpen(false)}
+                      className="flex-1"
+                    >
+                      Отмена
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
 
