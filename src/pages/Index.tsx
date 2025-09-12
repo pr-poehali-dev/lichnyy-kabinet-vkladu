@@ -34,14 +34,8 @@ export default function Index() {
     endDate: '2025-11-11'
   };
 
-  const calculateEarnings = () => {
-    const monthsElapsed = Math.floor((currentDate.getTime() - new Date(clientData.openDate).getTime()) / (1000 * 60 * 60 * 24 * 30));
-    const monthlyRate = clientData.rate / 12 / 100;
-    return Math.floor(clientData.depositAmount * monthlyRate * monthsElapsed);
-  };
-
-  const earnings = calculateEarnings();
-  const currentBalance = clientData.depositAmount + earnings;
+  const earnings = 0;
+  const currentBalance = clientData.depositAmount;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -93,10 +87,7 @@ export default function Index() {
                     <p className="text-sm text-muted-foreground">Начальная сумма</p>
                     <p className="text-xl font-semibold">{formatCurrency(clientData.depositAmount)}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Начислено процентов</p>
-                    <p className="text-xl font-semibold text-green-500">+{formatCurrency(earnings)}</p>
-                  </div>
+
                 </div>
 
                 <div className="space-y-4">
@@ -155,23 +146,7 @@ export default function Index() {
                   </div>
                 </div>
 
-                {earnings > 0 && (
-                  <div className="flex items-center justify-between p-4 rounded-lg border bg-card">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-blue-100 p-2 rounded-full">
-                        <Icon name="Percent" className="w-4 h-4 text-blue-600" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Начисление процентов</p>
-                        <p className="text-sm text-muted-foreground">За период</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-blue-600">+{formatCurrency(earnings)}</p>
-                      <Badge variant="secondary" className="text-xs">Начислено</Badge>
-                    </div>
-                  </div>
-                )}
+
               </div>
             </CardContent>
           </Card>
