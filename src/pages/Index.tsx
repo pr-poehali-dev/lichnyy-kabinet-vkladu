@@ -73,7 +73,7 @@ export default function Index() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Icon name="PiggyBank" className="w-5 h-5 text-primary" />
-                Срочный депозит "Доходный"
+                Вклад в плюсе
               </CardTitle>
             </CardHeader>
             <CardContent>
