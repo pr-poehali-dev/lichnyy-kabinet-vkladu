@@ -15,15 +15,15 @@ export default function Index() {
             </AvatarFallback>
           </Avatar>
 
-          <Button variant="ghost" size="sm" className="text-white bg-[#1E3A5F] px-6 rounded-full">
+          <Button variant="ghost" size="sm" className="text-white bg-[#1E3A5F] px-6 rounded-full hover:bg-[#2A4A71] transition-colors">
             Выгода
           </Button>
 
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" className="text-white">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 transition-colors">
               <Icon name="Search" size={20} />
             </Button>
-            <Button variant="ghost" size="icon" className="text-white relative">
+            <Button variant="ghost" size="icon" className="text-white relative hover:bg-white/10 transition-colors">
               <Icon name="Gift" size={20} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-purple-500 rounded-full"></span>
             </Button>
@@ -53,45 +53,45 @@ export default function Index() {
 
           {/* Cards */}
           <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-2">
-            <div className="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 min-w-fit">
+            <button className="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 min-w-fit transition-all hover:bg-gray-100 hover:scale-105 active:scale-95">
               <div className="w-12 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md flex items-center justify-center">
                 <span className="text-white text-xs font-bold">МИР</span>
               </div>
               <span className="font-medium">0787</span>
-            </div>
-            <div className="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 min-w-fit">
+            </button>
+            <button className="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 min-w-fit transition-all hover:bg-gray-100 hover:scale-105 active:scale-95">
               <div className="w-12 h-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded-md flex items-center justify-center">
                 <span className="text-white text-xs font-bold">МИР</span>
               </div>
               <span className="font-medium">4264</span>
-            </div>
-            <Button variant="ghost" className="rounded-2xl h-14 w-14 flex-shrink-0 bg-gray-50">
+            </button>
+            <Button variant="ghost" className="rounded-2xl h-14 w-14 flex-shrink-0 bg-gray-50 hover:bg-gray-100 transition-colors">
               <Icon name="Plus" size={24} className="text-blue-600" />
             </Button>
           </div>
 
           {/* Quick Actions */}
           <div className="grid grid-cols-4 gap-4">
-            <button className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+            <button className="flex flex-col items-center gap-2 transition-all hover:scale-105 active:scale-95">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors hover:bg-blue-100">
                 <Icon name="QrCode" size={24} className="text-blue-600" />
               </div>
               <span className="text-xs text-center text-gray-700">QR и оплата по фото</span>
             </button>
-            <button className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+            <button className="flex flex-col items-center gap-2 transition-all hover:scale-105 active:scale-95">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors hover:bg-blue-100">
                 <Icon name="CirclePlus" size={24} className="text-blue-600" />
               </div>
               <span className="text-xs text-center text-gray-700">Пополнить счет</span>
             </button>
-            <button className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+            <button className="flex flex-col items-center gap-2 transition-all hover:scale-105 active:scale-95">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors hover:bg-blue-100">
                 <Icon name="ArrowRightLeft" size={24} className="text-blue-600" />
               </div>
               <span className="text-xs text-center text-gray-700">Перевести по телефону</span>
             </button>
-            <button className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+            <button className="flex flex-col items-center gap-2 transition-all hover:scale-105 active:scale-95">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center transition-colors hover:bg-blue-100">
                 <Icon name="Smartphone" size={24} className="text-blue-600" />
               </div>
               <span className="text-xs text-center text-gray-700">Оплата мобильного</span>
@@ -151,23 +151,23 @@ export default function Index() {
       <nav className="fixed bottom-0 left-0 right-0 bg-[#1A2332] border-t border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-2">
           <div className="flex items-center justify-around">
-            <button className="flex flex-col items-center gap-1 py-2 px-4 text-white">
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-white transition-colors hover:bg-white/5">
               <Icon name="Home" size={24} />
               <span className="text-xs">Главная</span>
             </button>
-            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400 transition-colors hover:text-white hover:bg-white/5">
               <Icon name="ArrowUpDown" size={24} />
               <span className="text-xs">Платежи</span>
             </button>
-            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400 transition-colors hover:text-white hover:bg-white/5">
               <Icon name="Clock" size={24} />
               <span className="text-xs">История</span>
             </button>
-            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400 transition-colors hover:text-white hover:bg-white/5">
               <Icon name="LayoutGrid" size={24} />
               <span className="text-xs">Сервисы</span>
             </button>
-            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400 transition-colors hover:text-white hover:bg-white/5">
               <Icon name="MessageCircle" size={24} />
               <span className="text-xs">Чат</span>
             </button>
