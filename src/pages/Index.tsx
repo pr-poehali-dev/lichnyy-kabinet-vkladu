@@ -1,194 +1,179 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import Icon from '@/components/ui/icon';
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Icon from "@/components/ui/icon";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function Index() {
-  const currentDate = new Date();
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ru-RU', {
-      style: 'currency',
-      currency: 'RUB',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(amount);
-  };
-
-  const clientData = {
-    name: 'Сидоров Виталий Александрович',
-    depositAmount: 1000000,
-    rate: 18.5,
-    openDate: '2025-07-10',
-    term: 4,
-    endDate: '2025-11-11'
-  };
-
-  const earnings = 0;
-  const currentBalance = clientData.depositAmount;
-
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto p-4 max-w-6xl">
-        {/* Заголовок ВТБ */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary text-primary-foreground rounded-lg p-3">
-              <Icon name="Building2" className="w-8 h-8" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold">ВТБ Онлайн</h1>
-              <p className="text-muted-foreground">Личный кабинет</p>
-            </div>
-          </div>
-          <Badge variant="secondary" className="px-4 py-2">
-            {formatDate(currentDate.toISOString().split('T')[0])}
-          </Badge>
-        </div>
+    <div className="min-h-screen bg-[#0D1B2E]">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-[#0D1B2E] border-b border-white/10">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Avatar className="w-10 h-10 bg-white/10">
+            <AvatarFallback className="bg-white/10 text-white">
+              <Icon name="User" size={20} />
+            </AvatarFallback>
+          </Avatar>
 
-        {/* Приветствие клиента */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-3">
-              <Icon name="User" className="w-5 h-5 text-primary" />
-              Добро пожаловать, {clientData.name}
-            </CardTitle>
-            <CardDescription>Ваш персональный банковский кабинет</CardDescription>
-          </CardHeader>
+          <Button variant="ghost" size="sm" className="text-white bg-[#1E3A5F] px-6 rounded-full">
+            Выгода
+          </Button>
+
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="text-white">
+              <Icon name="Search" size={20} />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-white relative">
+              <Icon name="Gift" size={20} />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-purple-500 rounded-full"></span>
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 py-6 pb-24">
+        {/* Main Account Card */}
+        <Card className="bg-white rounded-3xl p-6 mb-6 shadow-xl">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                <span>Мастер-счет в рублях</span>
+                <span className="text-gray-400">• 7469</span>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-5xl font-medium">1 700</span>
+                <span className="text-2xl text-gray-400">,12 ₽</span>
+                <Icon name="Eye" size={24} className="text-gray-400 ml-2" />
+              </div>
+            </div>
+            <Button variant="ghost" size="icon" className="text-gray-400">
+              <Icon name="MoreVertical" size={20} />
+            </Button>
+          </div>
+
+          {/* Cards */}
+          <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-2">
+            <div className="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 min-w-fit">
+              <div className="w-12 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded-md flex items-center justify-center">
+                <span className="text-white text-xs font-bold">МИР</span>
+              </div>
+              <span className="font-medium">0787</span>
+            </div>
+            <div className="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 min-w-fit">
+              <div className="w-12 h-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded-md flex items-center justify-center">
+                <span className="text-white text-xs font-bold">МИР</span>
+              </div>
+              <span className="font-medium">4264</span>
+            </div>
+            <Button variant="ghost" className="rounded-2xl h-14 w-14 flex-shrink-0 bg-gray-50">
+              <Icon name="Plus" size={24} className="text-blue-600" />
+            </Button>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="grid grid-cols-4 gap-4">
+            <button className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+                <Icon name="QrCode" size={24} className="text-blue-600" />
+              </div>
+              <span className="text-xs text-center text-gray-700">QR и оплата по фото</span>
+            </button>
+            <button className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+                <Icon name="CirclePlus" size={24} className="text-blue-600" />
+              </div>
+              <span className="text-xs text-center text-gray-700">Пополнить счет</span>
+            </button>
+            <button className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+                <Icon name="ArrowRightLeft" size={24} className="text-blue-600" />
+              </div>
+              <span className="text-xs text-center text-gray-700">Перевести по телефону</span>
+            </button>
+            <button className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
+                <Icon name="Smartphone" size={24} className="text-blue-600" />
+              </div>
+              <span className="text-xs text-center text-gray-700">Оплата мобильного</span>
+            </button>
+          </div>
         </Card>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Основная информация о вкладе */}
-          <Card className="lg:col-span-2">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Icon name="PiggyBank" className="w-5 h-5 text-primary" />
-                Вклад в плюсе
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Текущий баланс</p>
-                    <p className="text-3xl font-bold text-primary">{formatCurrency(currentBalance)}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Начальная сумма</p>
-                    <p className="text-xl font-semibold">{formatCurrency(clientData.depositAmount)}</p>
-                  </div>
+        {/* Notification Card */}
+        <Card className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-4 mb-6 flex items-center gap-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <Icon name="Sparkles" size={32} className="text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold text-gray-900 mb-1">Новые возможности главной</h3>
+            <p className="text-sm text-gray-600">Узнайте, что изменилось</p>
+          </div>
+          <Button variant="ghost" size="icon" className="text-gray-400 flex-shrink-0">
+            <Icon name="X" size={20} />
+          </Button>
+        </Card>
 
+        {/* Savings Section */}
+        <div className="mb-4">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              Накопления
+              <Icon name="ChevronDown" size={20} className="text-gray-400" />
+            </h2>
+            <Button variant="ghost" size="icon" className="text-gray-400">
+              <Icon name="MoreVertical" size={20} />
+            </Button>
+          </div>
+
+          <Card className="bg-white rounded-3xl p-5">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <Icon name="Percent" size={28} className="text-blue-600" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="font-medium text-gray-900">Накопительный ВТБ-Счет</span>
+                  <span className="text-sm text-gray-400">• 6005</span>
                 </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Процентная ставка</p>
-                    <p className="text-2xl font-bold text-primary">{clientData.rate}%</p>
-                    <p className="text-xs text-muted-foreground">годовых</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Срок вклада</p>
-                    <p className="text-xl font-semibold">{clientData.term} месяца</p>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Дата открытия</p>
-                    <p className="text-lg font-semibold">{formatDate(clientData.openDate)}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Дата окончания</p>
-                    <p className="text-lg font-semibold">{formatDate(clientData.endDate)}</p>
-                  </div>
-                  <Badge variant="default" className="w-fit">
-                    <Icon name="Clock" className="w-4 h-4 mr-2" />
-                    Активный
-                  </Badge>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-medium">0,00 ₽</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* История операций */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Icon name="History" className="w-5 h-5 text-primary" />
-                История операций
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 rounded-lg border bg-card">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-green-100 p-2 rounded-full">
-                      <Icon name="ArrowDown" className="w-4 h-4 text-green-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Поступление на вклад</p>
-                      <p className="text-sm text-muted-foreground">{formatDate(clientData.openDate)}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-green-600">+{formatCurrency(clientData.depositAmount)}</p>
-                    <Badge variant="secondary" className="text-xs">Выполнено</Badge>
-                  </div>
-                </div>
-
-
+              <div className="text-right">
+                <span className="text-sm font-medium text-gray-900">15,00 %</span>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Быстрые действия */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Icon name="Zap" className="w-5 h-5 text-primary" />
-                Быстрые действия
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <Button className="w-full justify-start" variant="secondary">
-                  <Icon name="FileText" className="w-4 h-4 mr-3" />
-                  Выписка по вкладу
-                </Button>
-                <Button className="w-full justify-start" variant="secondary">
-                  <Icon name="Calculator" className="w-4 h-4 mr-3" />
-                  Калькулятор доходности
-                </Button>
-                <Button className="w-full justify-start" variant="secondary">
-                  <Icon name="Phone" className="w-4 h-4 mr-3" />
-                  Связаться с банком
-                </Button>
-                <Separator />
-                <Button className="w-full justify-start" variant="outline">
-                  <Icon name="Settings" className="w-4 h-4 mr-3" />
-                  Настройки уведомлений
-                </Button>
-              </div>
-            </CardContent>
+            </div>
           </Card>
         </div>
+      </main>
 
-        {/* Подвал */}
-        <div className="mt-8 text-center text-sm text-muted-foreground">
-          <p>© 2025 ВТБ Банк. Все права защищены.</p>
-          <p>Лицензия Банка России № 1000</p>
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#1A2332] border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-4 py-2">
+          <div className="flex items-center justify-around">
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-white">
+              <Icon name="Home" size={24} />
+              <span className="text-xs">Главная</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+              <Icon name="ArrowUpDown" size={24} />
+              <span className="text-xs">Платежи</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+              <Icon name="Clock" size={24} />
+              <span className="text-xs">История</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+              <Icon name="LayoutGrid" size={24} />
+              <span className="text-xs">Сервисы</span>
+            </button>
+            <button className="flex flex-col items-center gap-1 py-2 px-4 text-gray-400">
+              <Icon name="MessageCircle" size={24} />
+              <span className="text-xs">Чат</span>
+            </button>
+          </div>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }
